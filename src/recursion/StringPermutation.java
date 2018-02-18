@@ -1,27 +1,38 @@
 package recursion;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by prategar on 5/16/17.
+ * Write a method to compute all permutations of a string
  */
 public class StringPermutation {
+
     public static void main(String[] args) {
-        String input = "prateek";
-        ArrayList<String> output = new ArrayList<>();
-        getPermutations("", input, output);
-        System.out.println(output);
-        System.out.println(output.size());
+        List<String> all = getPermutations("prateek");
+        System.out.println(all.size());
+        System.out.println(all);
     }
 
-    public static void getPermutations(String prefix, String str, ArrayList<String> output) {
-        int n = str.length();
-        if (n == 0) {
-            output.add(prefix);
-        } else {
-            for (int i = 0; i < n; i++)
-                getPermutations(prefix + str.charAt(i), str.substring(0, i) + str.substring(i + 1, n), output);
+    public static List<String> getPermutations(String originalString) {
+        List<String> permutations = new ArrayList<>();
+
+        if (originalString.length()==1){
+            permutations.add(originalString);
+            return permutations;
         }
+
+        for (int i=0; i<originalString.length(); i++){
+            List<String> _permutations = getPermutations(getStringWithRemovalOfCharAtIndex(originalString, i));
+            for (String sub : _permutations){
+                permutations.add(originalString.charAt(i) + sub);
+            }
+        }
+        return permutations;
     }
 
+    public static String getStringWithRemovalOfCharAtIndex(String original, int index){
+        StringBuilder sb = new StringBuilder(original);
+        return sb.deleteCharAt(index).toString();
+    }
 }

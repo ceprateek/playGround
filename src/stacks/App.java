@@ -18,22 +18,5 @@ public class App {
         stack.pop();
         stack.pop();
         stack.print();
-
-        Stack<Integer> jstack = new Stack<Integer>();
-        jstack.push(1);
-        jstack.push(2);
-        jstack.push(3);
-
-        System.out.println(jstack);
-
-        jstack.pop();
-        System.out.println(jstack);
-        jstack.pop();
-        jstack.pop();
-        jstack.pop();
-
-
-
-
     }
 }
