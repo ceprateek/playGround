@@ -6,12 +6,12 @@ public class sorts {
     public static void main(String[] args) {
         Integer[] array = {1, 12, 5, 26, 7, 14, 3, 17, 2};
         Integer[] array1 = {11, 121, 51, 261, 71, 141, 31, 171, 21};
-        Sort<Integer> algo = new MergeSort();
+        Sort<Integer> algo = new QuickSort();
         algo.sort(array);
         algo.sort(array1);
         System.out.println("----Result----");
-        Integer[] result = mergeSortedArrays(array, array1);
-        printArray(result);
+        //Integer[] result = mergeSortedArrays(array, array1);
+        //printArray(result);
     }
 
     public static void printArray(Integer[] array) {

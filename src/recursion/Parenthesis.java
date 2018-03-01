@@ -31,7 +31,7 @@ public class Parenthesis {
     }
 
     public static void main(String[] args) {
-        printPar(3);
+        printPar(10);
     }
 }
 

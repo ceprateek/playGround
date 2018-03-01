@@ -9,30 +9,27 @@ import java.util.List;
 public class StringPermutation {
 
     public static void main(String[] args) {
-        List<String> all = getPermutations("prateek");
-        System.out.println(all.size());
-        System.out.println(all);
+        System.out.println(getPermutations("abc"));
     }
 
-    public static List<String> getPermutations(String originalString) {
-        List<String> permutations = new ArrayList<>();
-
-        if (originalString.length()==1){
-            permutations.add(originalString);
-            return permutations;
+    public static List<String> getPermutations(String input){
+        List<String> output = new ArrayList<>();
+        if (input.length()==1){
+            output.add(input);
+            return output;
         }
-
-        for (int i=0; i<originalString.length(); i++){
-            List<String> _permutations = getPermutations(getStringWithRemovalOfCharAtIndex(originalString, i));
-            for (String sub : _permutations){
-                permutations.add(originalString.charAt(i) + sub);
+        for (int i=0 ; i<input.length(); i++){
+            List<String> permutations = getPermutations(getStringMinusIndex(input, i));
+            for (String permutation : permutations){
+                output.add(input.charAt(i) + permutation);
             }
         }
-        return permutations;
+        return output;
     }
 
-    public static String getStringWithRemovalOfCharAtIndex(String original, int index){
-        StringBuilder sb = new StringBuilder(original);
-        return sb.deleteCharAt(index).toString();
+    public static String getStringMinusIndex(String input, int index){
+        StringBuilder sb = new StringBuilder(input);
+        sb = sb.deleteCharAt(index);
+        return sb.toString();
     }
 }
