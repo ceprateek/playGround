@@ -1,33 +1,25 @@
-import java.util.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-public class Test {
-    public static void main(String[] args) {
-        Solution s = new Solution();
-        ListNode node 
+class Test {
+
+    public static void main(String args[]) throws NoSuchAlgorithmException
+    {
+        String[] strs = {"prateek", "garg", "deepti", "singhal", "nitara"};
+        for (String str : strs){
+            System.out.println(str);
+        }
+
+        String[] newStrs = new String[strs.length];
+        for (String str : strs){
+            if (str.equals("prateek")){
+                newStrs[strs.length-1] = str;
+            }
+        }
+        for (String str : newStrs){
+            System.out.println(str);
+            System.out.println(str.getClass().getName());
+        }
     }
-}
-
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- * Input: 1->2->4, 1->3->4
- * Output: 1->1->2->3->4->4
- */
-class Solution {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-
-    }
-}
-
- class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-        val = x;
-    }
-}
+} 

@@ -24,11 +24,13 @@ public class UniqueChars {
     private static String reverseString(String input){
         int j=input.length()-1;
         char[] inputChars = input.toCharArray();
-        for (int i=0;i<input.length()/2;i++){
+        //for (int i=0;i<input.length()/2;i++){
+        int i=0;
+        while (i<j){
             char buffer = inputChars[i];
             inputChars[i] = inputChars[j];
             inputChars[j] = buffer;
-            j--;
+            j--;i++;
         }
         return new String(inputChars);
     }
