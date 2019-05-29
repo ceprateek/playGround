@@ -37,32 +37,42 @@ Testcase2: sum of elements from 1st position to 5th position is 15
  */
 
 public class SubarrayGivenSum {
-    public static void main(String[] args) {
-        int[] ints = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        System.out.println(getIndex(ints, 15));
-    }
-
-    public static List<Integer> getIndex(int[] arr, int givenSum) {
-        int leftIndex = 0;
-        int rightIndex = 1;
-        List<Integer> results = new ArrayList<>();
-        int sumUptoNow = arr[leftIndex];
-        while (rightIndex > leftIndex && rightIndex < arr.length) {
-            if ()
-            if (sumUptoNow < givenSum) {
-                rightIndex++;
-                sumUptoNow = sumUptoNow + arr[rightIndex]
-            } else if (sum > rightIndex) {
-                leftIndex++;
-            } else {
-                List<Integer> result = new ArrayList<>();
-                result.add(leftIndex);
-                result.add(rightIndex);
-                leftIndex++;
-                rightIndex++;
+    public static void subArraySum(int arr[], int n, int sum) {
+        int currentSum = arr[0];
+        int start = 0;
+        for (int j = 1; j < n; j++) {
+            while (currentSum > sum && start < j) {
+                currentSum -= arr[start];
+                start++;
+            }
+            if (currentSum == sum) {
+                System.out.printf("%d %d\n", start+1, j);
+                return;
+            }
+            currentSum += arr[j];
+        }
+        while (start<n && currentSum>sum){
+            currentSum-=arr[start];
+            start++;
+            if (currentSum==sum){
+                System.out.printf("%d %d\n", start+1, n);
+                return;
             }
         }
+        System.out.println(-1);
+    }
 
-        return results;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for (int j = 0; j < t; j++) {
+            int n = sc.nextInt();
+            int sum = sc.nextInt();
+            int a[] = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = sc.nextInt();
+            }
+            subArraySum(a,n,sum);
+        }
     }
 }
