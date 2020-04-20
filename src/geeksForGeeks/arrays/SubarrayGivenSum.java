@@ -39,29 +39,25 @@ Testcase2: sum of elements from 1st position to 5th position is 15
 public class SubarrayGivenSum {
     public static void subArraySum(int arr[], int n, int sum) {
         int currentSum = arr[0];
-        int start = 0;
-        for (int j = 1; j < n; j++) {
-            while (currentSum > sum && start < j) {
-                currentSum -= arr[start];
-                start++;
+        int leftIndex = 0;
+        for (int i=1; i<=arr.length; i++){
+            while (currentSum>sum && leftIndex<i-1){
+
+                currentSum-=arr[leftIndex];
+                leftIndex++;
             }
-            if (currentSum == sum) {
-                System.out.printf("%d %d\n", start+1, j);
-                return;
-            }
-            currentSum += arr[j];
-        }
-        while (start<n && currentSum>sum){
-            currentSum-=arr[start];
-            start++;
+
             if (currentSum==sum){
-                System.out.printf("%d %d\n", start+1, n);
+                System.out.printf("%d %d", leftIndex, i-1);
                 return;
             }
+            if (i < n)
+            currentSum+=arr[i];
         }
-        System.out.println(-1);
+
     }
 
+    @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();

@@ -17,10 +17,10 @@ Constraints:
 Example:
 Input:
 2
-4
-1 5 3 2
+5
+1 2 3 5
 3
-3 2 7
+2 3 7
 Output:
 2
 -1
@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class CountTriplets {
+    @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
@@ -47,29 +48,28 @@ public class CountTriplets {
         }
     }
 
-    public static int countTriplets(int[] input){
-        int result = -1;
-        if (input.length<3)
-            return -1;
+    public static int countTriplets(int[] input) {
         Arrays.sort(input);
-        for (int j=input.length-1;j>1;j--){
-            int l=0,r=j-1;
-            while (l<r){
-                int currentSum = input[l] + input[r];
-                if (currentSum==input[j]){
-                    if (result<0)
-                        result=0;
-                    result++;
-                    System.out.printf("%d %d %d\n",input[l],input[r],input[j]);
-                    l++;r--;
-                }else if (currentSum<input[j]){
-                    l++;
+        int tripletsFound =0;
+        for (int i=input.length-1; i>1; i--) {
+            int right = i-1,left=0;
+            while (left < right) {
+                int currentSum = input[left] + input[right];
+                if (currentSum == input[i]) {
+                    tripletsFound++;
+                    left++;
+                    right--;
+                } else if (currentSum<input[i]){
+                    left++;
                 }else {
-                    r--;
+                    right--;
                 }
+
             }
         }
-
-        return result;
+        if (tripletsFound>0)
+            return tripletsFound;
+        else
+            return -1;
     }
 }
