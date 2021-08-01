@@ -1,31 +1,29 @@
-import java.net.*;
+import java.util.ArrayList;
 
-class Test {
-
-    public static void main(String args[]) throws UnknownHostException {
-        String url = "ldap://[34:45::1]:10389";
-        URI uri = null;
-        try {
-            uri = new URI(url);
-        }catch (URISyntaxException e){
-            throw new IllegalArgumentException("Invalid LDAP URL: " + url);
+public class Test {
+    public static void main(String[] args) throws Exception{
+        int[] arr1 = new int[10];
+        int[] arr2 = new int[10];
+        for(int i=0; i<arr1.length; i++){
+            arr1[i] = i;
+            arr2[i] = i+5;
         }
-        int port = uri.getPort();
-        String hostname = uri.getHost();
-        String scheme = uri.getScheme();
-
-        System.out.println("port: " + port + " hostname: "+hostname + "scheme: "+ scheme);
-
-        InetAddress address = InetAddress.getByName(hostname);
-
-        if (address instanceof Inet6Address) {
-            System.out.println("ipv6");
-            System.out.println(hostname);
-        }
-
-
-
+        Test t = new Test();
+        System.out.println(t.findDupsArrays(arr1, arr2));
     }
 
+    ArrayList<Integer> findDupsArrays(int[] arr1, int[] arr2){
+        ArrayList<Integer> output = new ArrayList<>();
+        for(int i=0; i<arr1.length; i++){
+            int firstArrNum = arr1[i];
+            for (int j=0; j<arr2.length; j++){
+                int secondArrNum = arr2[j];
+                if (firstArrNum == secondArrNum){
+                    output.add(secondArrNum);
+                }
+            }
+        }
+        return output;
+    }
+}
 
-} 

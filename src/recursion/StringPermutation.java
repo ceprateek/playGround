@@ -8,51 +8,58 @@ import java.util.List;
  */
 
 
-class StringPermutation{
-    List<String> list = new ArrayList<>();
-    public void permutate(String s){
-        permutateHelper(s, "");
-    }
-
-    public void indent(int n){
-        for (int i=0; i<n; i++){
-            System.out.print(" ");
-        }
-    }
+public class StringPermutation {
 
     public static void main(String[] args) {
-        StringPermutation s = new StringPermutation();
-        s.permutate("abc");
-        System.out.println(s.list.size());
+        StringPermutation stringPermutation = new StringPermutation();
+        List<String> binaryNumbers = stringPermutation.getBinaryNumbers(2);
+        System.out.println(binaryNumbers);
     }
 
-    public void permutateHelper(String s, String chosen){
-        indent(chosen.length());
-        //System.out.println("PermuteHelper (s= " + s + " chosen= " + chosen + " )");
-        if (s.isEmpty()){
-            System.out.println(chosen);
-            list.add(chosen);
+    /*
+    ab
+    ba
 
+    abc
+    acb
+
+    bac
+    bca
+
+    cab
+    cba
+
+     */
+    public List<String> getStringPermutations(String s){
+        List<String> result = new ArrayList<>();
+        String temp = "";
+        getStringPermutationsHelper(s,result,temp);
+        return result;
+    }
+
+    public void getStringPermutationsHelper(String s, List<String> result, String temp){
+
+    }
+
+
+    public List<String> getBinaryNumbers(int n) {
+        List<String> result = new ArrayList<>();
+        String temp = "";
+        getBinaryNumbersHelper(n, result, temp);
+        return result;
+    }
+
+    public void getBinaryNumbersHelper(int n, List<String> result, String temp) {
+        if (n==0){
+            result.add(temp);
         }else {
-            for (int i=0; i<s.length(); i++){
-                //choose
-                char c = s.charAt(i);
-                chosen = chosen + c;
-                String stemp = getStringMinusIndex(s, i);
-
-
-                //explore
-                permutateHelper(stemp, chosen);
-
-                //unchoose
-                chosen = chosen.substring(0, chosen.length()-1);
-            }
+            getBinaryNumbersHelper(n-1, result, temp + "0");
+            getBinaryNumbersHelper(n-1, result, temp + "1");
         }
     }
 
-    public static String getStringMinusIndex(String input, int index){
-        StringBuilder sb = new StringBuilder(input);
-        sb = sb.deleteCharAt(index);
-        return sb.toString();
-    }
+
+
 }
+
+

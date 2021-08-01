@@ -5,57 +5,55 @@ import java.util.List;
 
 public class DiceRoll {
 
+    static int counter;
+
     public static void main(String[] args) {
         DiceRoll dr = new DiceRoll();
-        System.out.println(dr.diceRoll(3));
-        dr.diceRollSum(3, 9);
+//        dr.dicePermutate(3);
+//        System.out.printf("counter : %s%n",counter);
+
+        dr.diceSum(3,6);
+        System.out.println(counter);
     }
 
-    public List<List<Integer>> diceRoll(int dices){
-        List<List<Integer>> result = new ArrayList<>();
-        diceRoll(3, new ArrayList<Integer>(), result);
-        return result;
+    public void dicePermutate(int n){
+        //print all possible permutations where n is number of dices
+        dicePermutateHelper(n,new ArrayList<>());
     }
 
-    public void diceRoll(int dices, List temp, List<List<Integer>> result){
-        if (dices==0){
-            List<Integer> onePermutation = new ArrayList<>(temp);
-            result.add(onePermutation);
-        }else {
-            for (Integer i=1; i<=6; i++){
-                temp.add(i);
-                diceRoll(dices-1, temp, result);
+    private void dicePermutateHelper(int n, List<Integer> chosen){
+        if (n==0){
+            System.out.println(chosen);
+            counter++;
+            return;
+        }
+        for (int i=1;i<=6;i++){
+            chosen.add(i);
+            dicePermutateHelper(n-1,chosen);
+            chosen.remove(chosen.size()-1);
+        }
+    }
 
-                temp.remove(temp.size()-1);
+    public void diceSum(int n, int sum){
+        //print all possible combinations which sum to sum
+        //e.g. 3,6 [1,1,4] [1,2,3] [1,3,2] [1,4,1]
+        diceSumHelper(3,6, 0, new ArrayList<>());
+    }
 
+    private void diceSumHelper(int n, int sum, int sumSoFar, List<Integer> chosen){
+        if (n==0){
+            counter++;
+            if (sum==sumSoFar){
+                System.out.println(chosen);
+            }
+            return;
+        }else if ((sumSoFar + 1*n) <= sum && (sumSoFar + 6*n)>=sum) {
+            for (int i = 1; i <= 6; i++) {
+                chosen.add(i);
+                diceSumHelper(n - 1, sum, sumSoFar+i, chosen);
+                chosen.remove(chosen.size() - 1);
             }
         }
     }
 
-    public void diceRollSum(int dices, int sum){
-        List<Integer> temp = new ArrayList<>();
-        diceRollHelper(dices, temp, 0, sum);
-    }
-
-    public void diceRollHelper(int dices, List<Integer> temp, int tempSum, int sum){
-        if (dices==0){
-            if (tempSum==sum)
-            System.out.println(temp);
-        }else {
-            for (int i=1; i<6; i++){
-
-                temp.add(i);
-                diceRollHelper(dices-1, temp, tempSum+i, sum);
-                temp.remove(temp.size()-1);
-            }
-        }
-    }
-
-    private int sum(List<Integer> listOfIntegers){
-        int sum = 0;
-        for (Integer a : listOfIntegers){
-            sum += a;
-        }
-        return sum;
-    }
 }

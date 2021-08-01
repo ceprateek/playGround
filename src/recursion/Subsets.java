@@ -1,43 +1,42 @@
 package recursion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Subsets {
 
     public static void main(String[] args) {
+        List<String> strs = new ArrayList<>();
+        strs.add("prateek");
+        strs.add("garg");
+        strs.add("deepti");
+        strs.add("singhal");
         Subsets s = new Subsets();
-        int[] nums = {1, 2, 3};
-        System.out.println(s.subsets(nums));
+        //s.subsets(strs);
+
+        long count = "abc;cvb;dfg;yth".chars().filter(ch -> ch == ';').count();
+        System.out.println(count);
     }
 
-    public List<List<Integer>> subsets(int[] nums){
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-        List<Integer> ints = new ArrayList<>();
-        for (int i : nums){
-            ints.add(i);
+    public void subsets(List<String> strs){
+        subsetsHelper(strs, new ArrayList<>());
+    }
+
+    public void subsetsHelper(List<String> strs, List<String> chosen){
+        System.out.println("strs: "+ strs.toString() + " chosen: "+ chosen.toString());
+        if (strs.isEmpty()){
+            System.out.println(chosen);
+            return;
         }
-        subsetsHelper(ints, temp, result);
-        return result;
+        String first = strs.get(0);
+        strs.remove(first);
+        subsetsHelper(strs, chosen);
+        chosen.add(first);
+        subsetsHelper(strs,chosen);
+
+//        chosen.remove(first);
+//        strs.add(first);
     }
 
-    public void subsetsHelper(List<Integer> ints, List<Integer> listSoFar, List<List<Integer>> result){
-        if (ints.size()==0){
-            List<Integer> finished = new ArrayList<>(listSoFar);
-            result.add(finished);
-        }else {
-            int chosen = ints.get(0);
-            ints.remove(0);
 
-            listSoFar.add(chosen);
-            subsetsHelper(ints, listSoFar, result);
-
-            listSoFar.remove(listSoFar.size()-1);
-            subsetsHelper(ints, listSoFar, result);
-
-            ints.add(0,chosen);
-        }
-    }
 }
